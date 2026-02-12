@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import imageio.v2 as imageio 
 
 import numpy as np
+import numpy.typing as npt
 import os
 
 
@@ -54,7 +55,7 @@ class DataSet():
             raise RuntimeError("[DataSet-ERROR] region information ambiguous")
         return latmask, lonmask
     
-    def getMesh(self, time_step, lat : float = None, lon : float = None, dlat : float = None, dlon : float = None, coarsen_factor : int =1) -> tuple[xr.DataArray, xr.DataArray, xr.DataArray]:
+    def getMesh(self, time_step, lat : float | None = None, lon : float | None = None, dlat : float | None = None, dlon : float | None = None, coarsen_factor : int =1) -> tuple[xr.DataArray, xr.DataArray, xr.DataArray]:
         """
         Getting the meshes for lattitude, lontitude and datafield resp. within the region 
             [lat - dlat, lat + dlat] x [lon - dlon, lon + dlon]
@@ -82,7 +83,28 @@ class DataSet():
         latmesh, lonmesh = np.meshgrid(latmesh, lonmesh)
         fieldmesh = self.array[self.data_var][time_step][latmask, lonmask]
         return latmesh, lonmesh, fieldmesh
-
+    
+    def getSpatialAveragedTimeSeries(self, lat : int, lon : int, dlat : int, dlon : int) :
+        """Produce a time series(1d array) of spatial average of the data in the given region [lat - dlat, lat + dlat] x [lon - dlon, lon + dlon] 
+        
+        :param lat: latitude
+        :type lat: float
+        :param lon: longitude
+        :type lon: float
+        :param dlat: delta latitude
+        :type dlat: float
+        :param dlon: delta longitude
+        :type dlon: float
+        :return: time-series of spatial average
+        :rtype: 1d numpy array
+        """
+        time_series = []
+        for time_step in range(time_steps):
+            _, _, fieldmesh = self.getMesh(time_step, lat, lon, dlat, dlon)
+            time_series.append(np.mean(fieldmesh.to_numpy()))
+        return np.array(time_series)
+        
+            
 class Visualize():
     def create_dir(self, dir):
         try : 
