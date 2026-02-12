@@ -4,6 +4,8 @@ A *minimal climate data visualizing workflow* for simple animation of scalar fie
 
 > **Key functionality**: 
 >   - Easy slicing : to "zoom in" on local regions
+>
+>     *Although typical dataset website can provide presliced data, to avoid repetitive downloading data for different locations it is more  convenient to download for all and post-slice the xarray when plot/animate*
 >   - Automatic coarsening of data for plotting vector field 
 >   - One-shot animation 
 >   - Automated direcotry open/close  
@@ -29,6 +31,7 @@ Plot a 2d vector field(24 hour wind field in this example):
     vs.animate_from_frames()
 ```
 ### Result 
+**This is an animation** if it's freezed try clicking into it or refresh the current site.
 ![](Examples/animation/wind_vector_field.gif)
 
 ## Example 2
@@ -46,7 +49,7 @@ Plot a scalar field (vertically integrated enthalpy)
     vs.animate_from_frames()
 ```
 ### Result: 
-
+**This is an animation** if it's freezed try clicking into it or refresh the current site.
 ![](Examples/animation/vertical_integral_enthalpy.gif)
 
 
