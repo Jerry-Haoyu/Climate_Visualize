@@ -28,13 +28,32 @@ Plot a 2d vector field(24 hour wind field in this example):
     vs.populate_frame(title="uv wind field at 100m 2026-2-5")
     vs.animate_from_frames()
 ```
+### Result 
+![](Examples/animation/wind_vector_field.gif)
+
+## Example 2
+
+Plot a scalar field (vertically integrated enthalpy)
+
+```python
+    output_path =  "/data/keeling/a/hytang2/Climate_System_ATMS507/Main/HWs/HW2/outputs"
+    data_paths = {
+        "vithe" : "/data/keeling/a/hytang2/Climate_System_ATMS507/Main/HWs/HW2/data/vertical_integral_thermal_energy/vertical_integral_of_thermal_energy.grib"
+    }
+    time_steps =83
+    vs = Visualize(task_name="vertical_integral_enthalpy", mode='scalar', data_paths = data_paths, outputs_dir=output_path, time_steps=time_steps)
+    vs.populate_frame(title=r"Vertical Integral Of Enthalpy $\int H(T) dh (J/m^2)$")
+    vs.animate_from_frames()
+```
 ### Result: 
 
-!["24 H wind field"](/data/keeling/a/hytang2/Visualize/Examples/animation/wind_vector_field.gif)
+![](Examples/animation/vertical_integral_enthalpy.gif)
 
 
 ## Install and modify
+`git clone ` the repository or simply copy paste the tiny script. 
 
+There is a `requirements.txt` file that includes all dependencies. Just create a virtual environment using it. 
 
 
 
